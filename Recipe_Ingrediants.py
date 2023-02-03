@@ -29,3 +29,6 @@ class RecipeIngrediants:
         new_size = input('Size: ')
         ingrediant = [new_ingrediant, new_value, new_size]
         self.ingrediant_row[choice] = ingrediant
+
+    def delete_ingrediant(self, choice):
+        pass
