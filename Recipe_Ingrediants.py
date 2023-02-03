@@ -5,7 +5,7 @@ class RecipeIngrediants:
 
     def list_ingrediants(self):
         for row in range(len(self.ingrediant_row)):
-            print(f': {self.ingrediant_row[row][0]} - {self.ingrediant_row[row][1]} {self.ingrediant_row[row][2]}')
+            print(f'{row+1}: {self.ingrediant_row[row][0]} - {self.ingrediant_row[row][1]} {self.ingrediant_row[row][2]}')
 
     def input_ingrediant(self):
         print('== Input details of new ingrediant ==')
