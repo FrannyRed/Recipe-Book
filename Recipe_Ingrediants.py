@@ -24,6 +24,7 @@ class RecipeIngrediants:
         new_ingrediant = input('Ingrediant: ')
         self.ingrediant_row[choice] = new_ingrediant
 
+    # delete an ingrediant that already exists
     def delete_ingrediant(self, choice):
         choice = choice-1
         del self.ingrediant_row[choice]

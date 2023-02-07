@@ -13,7 +13,13 @@ class RecipeInstructions:
         self.instructions.append(new_instructions)
 
     def change_instructions(self, choice):
-        pass
+        choice = choice - 1
+        print('Current Instructions:')
+        print(f'{self.instructions[choice]}')
+        print('Input New Instructions:')
+        new_instructions = input('Instructions: ')
+        self.instructions[choice] = new_instructions
 
     def delete_instructions(self, choice):
-        pass
+        choice = choice - 1
+        del self.instructions[choice]
