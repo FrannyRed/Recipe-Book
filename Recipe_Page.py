@@ -6,6 +6,9 @@ from recipe_instructions import RecipeInstructions
 
 class RecipePage:
     
+    def recipe_name(self, name):
+        print(f'===============  {name}  ===============')
+
     # show user the current list of ingrediants
     def show_ingrediants(self, ingrediants):
         print('\n##########   Ingrediants   ##########\n')
@@ -39,8 +42,12 @@ instructions = RecipeInstructions()
 page = RecipePage()
 
 # test program
+os.system('cls')
+name = input('What is the name of your recipe?: ')
+
 while True:
     os.system('cls')
+    page.recipe_name(name)
     page.show_ingrediants(ingrediants)
     page.show_instructions(instructions)
     choice = page.user_choices()
@@ -61,6 +68,15 @@ while True:
     elif choice == 4:   # add an instruction step
         os.system('cls')
         instructions.add_instructions()
+
+    elif choice == 5:   # change an instruction step
+        selection = int(input('Choose instruction step:'))
+        os.system('cls')
+        instructions.change_instructions()
+
+    elif choice == 6:   # delete an instruction step
+        selection = int(input('Choose instruction step:'))
+        instructions.delete_instructions()
 
     elif choice == 7:   # return to the list of recipes (currently exits the program)
         os.system('cls')
