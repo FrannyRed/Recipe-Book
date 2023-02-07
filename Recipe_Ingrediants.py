@@ -6,29 +6,24 @@ class RecipeIngrediants:
     # iterate over ingrediant list and display them to user
     def list_ingrediants(self):
         for row in range(len(self.ingrediant_row)):
-            print(f'{row+1}: {self.ingrediant_row[row][0]} - {self.ingrediant_row[row][1]} {self.ingrediant_row[row][2]}')
+            print(f'{row+1}: {self.ingrediant_row[row]}')
 
     # add new ingrediant to list
     def input_ingrediant(self):
         print('== Input details of new ingrediant ==')
         # TODO add data validation
         new_ingrediant = input('Ingrediant: ')
-        new_value = input('Value: ')
-        new_size = input('Size: ')
-        ingrediant = [new_ingrediant, new_value, new_size]
-        self.ingrediant_row.append(ingrediant)
+        self.ingrediant_row.append(new_ingrediant)
 
     # change an ingrediant that already exists
     def change_ingrediant(self, choice):
         choice = choice-1
         print('Current ingrediant:')
-        print(f'{self.ingrediant_row[choice][0]} - {self.ingrediant_row[choice][1]} {self.ingrediant_row[choice][2]}')
+        print(f'{self.ingrediant_row[choice]}')
         print('== Input details of new ingrediant ==')
         new_ingrediant = input('Ingrediant: ')
-        new_value = input('Value: ')
-        new_size = input('Size: ')
-        ingrediant = [new_ingrediant, new_value, new_size]
-        self.ingrediant_row[choice] = ingrediant
+        self.ingrediant_row[choice] = new_ingrediant
 
     def delete_ingrediant(self, choice):
-        pass
+        choice = choice-1
+        del self.ingrediant_row[choice]

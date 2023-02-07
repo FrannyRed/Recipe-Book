@@ -54,6 +54,10 @@ while True:
         os.system('cls')
         ingrediants.change_ingrediant(selection)
 
+    elif choice == 3:   # delete an ingrediant
+        selection = int(input('Choose ingrediant: '))
+        ingrediants.delete_ingrediant(selection)
+
     elif choice == 4:   # add an instruction step
         os.system('cls')
         instructions.add_instructions()
