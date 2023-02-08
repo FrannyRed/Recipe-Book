@@ -2,7 +2,7 @@ import os
 from recipe_ingrediants import RecipeIngrediants
 from recipe_instructions import RecipeInstructions
 
-# TODO add ingredients to a SQL database
+# TODO add ingredients and instructions to a SQL database
 
 class RecipePage:
     
@@ -25,7 +25,7 @@ class RecipePage:
     # give user their list of choices
     def user_choices(self):
         choice = int(input('''
-+++ Program Options +++
+*** Program Options ***
 
 Add Ingrediant: 1
 Change Ingrediant: 2

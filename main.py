@@ -1,4 +1,9 @@
 from recipe_page import RecipePage
 
+# initialize classes
 recipe_page = RecipePage()
-recipe_page.recipe_page_program_loop()
+
+# program loop
+while True:
+    recipe_page.recipe_page_program_loop()
+    break
