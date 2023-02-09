@@ -1,8 +1,9 @@
 from recipe_page import RecipePage
 from sql_connection import SQLiteConnection
+from recipe_list import RecipeList
 
 # initialize classes
-recipe_page = RecipePage()
+program_start = RecipeList()
 conn = SQLiteConnection()
 
 # create cursor
@@ -19,7 +20,7 @@ c.execute("""CREATE TABLE IF NOT EXISTS recipes (
 
 # program loop
 while True:
-    recipe_page.recipe_page_program_loop()
+    program_start.recipe_list_program_loop()
     break
 
 # Close SQL connection

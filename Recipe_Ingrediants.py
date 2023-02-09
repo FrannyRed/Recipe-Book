@@ -8,9 +8,13 @@ class RecipeIngrediants:
         self.c = self.connect.cursor()
 
     # iterate over ingrediant list and display them to user
-    def list_ingrediants(self):
+    def list_ingrediants(self, name):
         for row in range(len(self.ingrediant_row)):
             print(f'{row+1}: {self.ingrediant_row[row]}')
+        self.c.execute("SELECT * FROM recipes WHERE Recipe=? AND Type='ingrediant", (name,))
+        items = self.c.fetchall()
+        for item in items:
+            print(item[3])
 
     # add new ingrediant to list
     def input_ingrediant(self, recipe_name):

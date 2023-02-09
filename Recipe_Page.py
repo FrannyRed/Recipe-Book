@@ -11,9 +11,9 @@ class RecipePage:
         print(f'===============  Recipe: {name}  ===============')
 
     # show user the current list of ingrediants
-    def show_ingrediants(self, ingrediants):
+    def show_ingrediants(self, ingrediants, name):
         print('\n############   Ingrediants   ############\n')
-        ingrediants.list_ingrediants()
+        ingrediants.list_ingrediants(name)
         print('\n#########################################')
 
     # show recipe instructions to user
@@ -57,7 +57,7 @@ Input Here: '''))
         while True:
             os.system('cls')
             recipe_page.recipe_name(name)
-            recipe_page.show_ingrediants(ingrediants)
+            recipe_page.show_ingrediants(ingrediants, name)
             recipe_page.show_instructions(instructions)
             choice = recipe_page.user_choices()
 
