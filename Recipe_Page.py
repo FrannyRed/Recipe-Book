@@ -63,7 +63,7 @@ Input Here: '''))
 
             if choice == 1: # input new ingrediant
                 os.system('cls')
-                ingrediants.input_ingrediant()
+                ingrediants.input_ingrediant(name)
 
             elif choice == 2:   # change an ingrediant
                 selection = int(input('Choose ingrediant: '))
