@@ -1,8 +1,16 @@
 import os
 from recipe_ingredients import Recipeingredients
 from recipe_instructions import RecipeInstructions
+from sql_connection import SQLiteConnection
+
+# TODO input status message for each user choice
 
 class RecipePage:
+
+    def __init__(self):
+        self.ingredient_sql = ()
+        self.connect = SQLiteConnection()
+        self.c = self.connect.cursor()
     
     # print the recipe name
     def recipe_name(self, name):
@@ -49,6 +57,11 @@ Input Here: '''))
         instructions = RecipeInstructions()
         recipe_page = RecipePage()
 
+        # find the create date for the recipe to add to the data entry
+        self.c.execute("SELECT * FROM recipes WHERE recipe=? AND type='placeholder'", (name,))
+        date_added = self.c.fetchone()
+        date_added = date_added[1]
+
         # run the program loop
         while True:
             os.system('cls')
@@ -59,16 +72,19 @@ Input Here: '''))
 
             if choice == 1: # input new ingredient
                 os.system('cls')
-                ingredients.input_ingredient(name)
+                ingredients.input_ingredient(name, date_added)
 
             elif choice == 2:   # change an ingredient
-                selection = int(input('Choose ingredient: '))
-                os.system('cls')
-                ingredients.change_ingredient(selection, ingredients_list)
+                try:
+                    selection = int(input('Choose ingredient: '))
+                    os.system('cls')
+                    ingredients.change_ingredient(selection, ingredients_list, name, date_added)
+                except:
+                    pass
 
             elif choice == 3:   # delete an ingredient
                 selection = int(input('Choose ingredient: '))
-                ingredients.delete_ingredient(selection)
+                ingredients.delete_ingredient(selection, name, ingredients_list)
 
             elif choice == 4:   # add an instruction step
                 os.system('cls')

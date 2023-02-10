@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 
 # TODO make data validation for new recipes so there is no duplicating recipe names
+# TODO comment all this code
 
 class RecipeList:
 
