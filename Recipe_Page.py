@@ -1,8 +1,6 @@
 import os
-from recipe_ingrediants import RecipeIngrediants
+from recipe_ingredients import Recipeingredients
 from recipe_instructions import RecipeInstructions
-
-# TODO add ingredients and instructions to a SQL database
 
 class RecipePage:
     
@@ -10,13 +8,15 @@ class RecipePage:
     def recipe_name(self, name):
         print(f'===============  Recipe: {name}  ===============')
 
-    # show user the current list of ingrediants
-    def show_ingrediants(self, ingrediants, name):
-        print('\n############   Ingrediants   ############\n')
-        ingrediants.list_ingrediants(name)
+    # show user the current list of ingredients
+    def show_ingredients(self, ingredients, name):
+        print('\n############   Ingredients   ############\n')
+        ingredients_list = ingredients.list_ingredients(name)
         print('\n#########################################')
+        return ingredients_list # return ingredients list to be used in other functions
 
     # show recipe instructions to user
+    # TODO update instructions with SQL code
     def show_instructions(self, instructions):
         print('\n-----------   Instructions    -----------\n')
         instructions.list_instructions()
@@ -27,9 +27,9 @@ class RecipePage:
         choice = int(input('''
 *** Program Options ***
 
-Add Ingrediant: 1
-Change Ingrediant: 2
-Delete Ingrediant: 3
+Add ingredient: 1
+Change ingredient: 2
+Delete ingredient: 3
 
 Add Instruction Step: 4
 Change Instruction Step: 5
@@ -42,37 +42,33 @@ Input Here: '''))
         return choice
 
     # the recipe page program loop
-    def recipe_page_program_loop(self):
+    def recipe_page_program_loop(self, name):
 
         # initialize classes
-        ingrediants = RecipeIngrediants()
+        ingredients = Recipeingredients()
         instructions = RecipeInstructions()
         recipe_page = RecipePage()
-
-        # get the name of the new recipe from the user
-        os.system('cls')
-        name = input('What is the name of your recipe?: ')
 
         # run the program loop
         while True:
             os.system('cls')
             recipe_page.recipe_name(name)
-            recipe_page.show_ingrediants(ingrediants, name)
-            recipe_page.show_instructions(instructions)
-            choice = recipe_page.user_choices()
+            ingredients_list = recipe_page.show_ingredients(ingredients, name)  # print the list of ingredients
+            instructions_list = recipe_page.show_instructions(instructions) # print the list of instructions
+            choice = recipe_page.user_choices() # run the user choice class method
 
-            if choice == 1: # input new ingrediant
+            if choice == 1: # input new ingredient
                 os.system('cls')
-                ingrediants.input_ingrediant(name)
+                ingredients.input_ingredient(name)
 
-            elif choice == 2:   # change an ingrediant
-                selection = int(input('Choose ingrediant: '))
+            elif choice == 2:   # change an ingredient
+                selection = int(input('Choose ingredient: '))
                 os.system('cls')
-                ingrediants.change_ingrediant(selection)
+                ingredients.change_ingredient(selection, ingredients_list)
 
-            elif choice == 3:   # delete an ingrediant
-                selection = int(input('Choose ingrediant: '))
-                ingrediants.delete_ingrediant(selection)
+            elif choice == 3:   # delete an ingredient
+                selection = int(input('Choose ingredient: '))
+                ingredients.delete_ingredient(selection)
 
             elif choice == 4:   # add an instruction step
                 os.system('cls')

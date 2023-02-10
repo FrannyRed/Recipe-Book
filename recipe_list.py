@@ -1,33 +1,39 @@
 from sql_connection import SQLiteConnection
 from recipe_page import RecipePage
+from datetime import datetime
 import os
 
+# TODO make data validation for new recipes so there is no duplicating recipe names
 
 class RecipeList:
 
     def __init__(self):
         self.connect = SQLiteConnection()
         self.c = self.connect.cursor()
-        self.page = RecipePage()
 
     def list_recipes(self):
-        self.c.execute("SELECT DISTINCT Recipe FROM recipes")
+        self.c.execute("SELECT DISTINCT recipe FROM recipes")
         items = self.c.fetchall()
-        for item in range(len(items)):
-            print(f'{item+1}: {items[item][0]}')
-        return items
+        if not items:
+            print('No recipes yet...')
+        else:
+            for item in range(len(items)):
+                print(f'{item+1}: {items[item][0]}')
+            return items
 
-    def new_recipe(self):
+    def new_recipe(self, page):
         name = input('What is the name of your new recipe?: ')
-        name_input = (name, "", "", "")
-        self.c.execute("INSERT INTO recipes VALUES (?, ?, ?, ?)", name_input)
+        today = datetime.today().strftime('%m-%d-%Y')
+        sql = ("INSERT INTO recipes VALUES (?, ?, ?, ?, ?, ?)")
+        recipe_input = (name, today, '', 'placeholder', '', 'placeholder')
+        self.c.execute(sql, recipe_input)
         self.connect.commit()
-        self.page.recipe_page_program_loop(name)
+        page.recipe_page_program_loop(name)
 
-    def choose_recipe(self, list):
+    def choose_recipe(self, list, page):
         selection = int(input('Choose recipe to open: '))
         name = list[selection-1][0]
-        self.page.recipe_page_program_loop(name)
+        page.recipe_page_program_loop(name)
 
     def remove_recipe(self, list):
         selection = int(input('Choose recipe to delete: '))
@@ -52,14 +58,15 @@ Input Here: """))
         while True:
             os.system('cls')
             screen = RecipeList()
-            list = self.screen.list_recipes()
+            page = RecipePage()
+            list = screen.list_recipes()
             choice = self.user_choices()
 
             if choice == 1: # make a new recipe
-                screen.new_recipe()
+                screen.new_recipe(page)
 
             elif choice == 2:   # choose an existing recipe to open
-                screen.choose_recipe(list)
+                screen.choose_recipe(list, page)
 
             elif choice == 3:   # delete a recipe
                 screen.remove_recipe(list)
