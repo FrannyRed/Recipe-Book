@@ -60,6 +60,7 @@ Input Here: """))
             os.system('cls')
             screen = RecipeList()
             page = RecipePage()
+            print('Recipes\n--------------------')
             list = screen.list_recipes()
             choice = self.user_choices()
 

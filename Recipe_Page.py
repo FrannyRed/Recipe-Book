@@ -25,10 +25,11 @@ class RecipePage:
 
     # show recipe instructions to user
     # TODO update instructions with SQL code
-    def show_instructions(self, instructions):
+    def show_instructions(self, instructions, name):
         print('\n-----------   Instructions    -----------\n')
-        instructions.list_instructions()
+        instruction_list = instructions.list_instructions(name)
         print('\n-----------------------------------------')
+        return instruction_list # return instructions list to be used in other functions
 
     # give user their list of choices
     def user_choices(self):
@@ -62,12 +63,15 @@ Input Here: '''))
         date_added = self.c.fetchone()
         date_added = date_added[1]
 
+        status_message = ''
+
         # run the program loop
         while True:
             os.system('cls')
             recipe_page.recipe_name(name)
             ingredients_list = recipe_page.show_ingredients(ingredients, name)  # print the list of ingredients
-            instructions_list = recipe_page.show_instructions(instructions) # print the list of instructions
+            instructions_list = recipe_page.show_instructions(instructions, name) # print the list of instructions
+            print(status_message)
             choice = recipe_page.user_choices() # run the user choice class method
 
             if choice == 1: # input new ingredient
@@ -80,24 +84,27 @@ Input Here: '''))
                     os.system('cls')
                     ingredients.change_ingredient(selection, ingredients_list, name, date_added)
                 except:
-                    pass
+                    status_message = 'No ingredient for that choice exists'
 
             elif choice == 3:   # delete an ingredient
-                selection = int(input('Choose ingredient: '))
-                ingredients.delete_ingredient(selection, name, ingredients_list)
+                try:
+                    selection = int(input('Choose ingredient: '))
+                    ingredients.delete_ingredient(selection, name, ingredients_list)
+                except:
+                    status_message = 'No ingredient for that choice exists'
 
             elif choice == 4:   # add an instruction step
                 os.system('cls')
-                instructions.add_instructions()
+                instructions.add_instructions(name, date_added)
 
             elif choice == 5:   # change an instruction step
                 selection = int(input('Choose instruction step:'))
                 os.system('cls')
-                instructions.change_instructions()
+                instructions.change_instructions(selection, instructions_list, name, date_added)
 
             elif choice == 6:   # delete an instruction step
                 selection = int(input('Choose instruction step:'))
-                instructions.delete_instructions()
+                instructions.delete_instructions(selection, name, instructions_list)
 
             elif choice == 7:   # return to the list of recipes (currently exits the program)
                 os.system('cls')
